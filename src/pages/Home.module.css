@@ -1,0 +1,36 @@
+.relatorios {
+    display: grid;
+}
+
+@media(min-width: 0px) {
+    .relatorios {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media(min-width: 700px) {
+    .relatorios {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+@media(min-width: 1000px) {
+    .relatorios {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+}
+
+.Bases {
+    display: grid;
+}
+
+@media(min-width:0px) {
+    .Bases {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(min-width:430px) {
+    .Bases {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
