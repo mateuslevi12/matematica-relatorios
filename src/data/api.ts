@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosConfig = {
-    baseURL: "http://localhost:3002"
+    baseURL: "https://api-matematic.vercel.app/"
 }
 
 const api = axios.create(axiosConfig)
