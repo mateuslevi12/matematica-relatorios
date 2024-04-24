@@ -76,34 +76,40 @@ export async function getRelatorio10(): Promise<[]> {
     return response.data.result
 }
 
-export async function exportToExcel(method: () => Promise<T>) {
-    const response = await method()
+export async function exportToExcel<IRelatorios>(method: () => Promise<IRelatorios>, numero: string) {
+    try {
+        const response = await method();
 
+        const responseData = response as { [key: string]: string };
+        console.log(responseData)
+        // Transforma o objeto em um array de objetos
+        const arrayDeObjetos = Object.values(responseData);
 
-    const arrayDeArrays = Object.entries(response).map(([key, value]) => [key, value]);
+        // Mapeia os objetos para um array de arrays
+        const arrayDeArrays = arrayDeObjetos.map(objeto => Object.values(objeto));
 
-    console.log(arrayDeArrays);
+        const ws = XLSX.utils.aoa_to_sheet(arrayDeArrays);
 
-    const ws = XLSX.utils.aoa_to_sheet(arrayDeArrays);
+        ws['!cols'] = [
+            { wch: 5 },
+            { wch: 20 },
+            { wch: 20 },
+            { wch: 20 },
+            { wch: 15 },
+            { wch: 15 },
+            { wch: 15 },
+            { wch: 10 },
+            { wch: 10 },
+            { wch: 10 },
+            { wch: 10 },
+            { wch: 10 },
+        ];
 
-    ws['!cols'] = [
-        { wch: 5 },
-        { wch: 20 },
-        { wch: 20 },
-        { wch: 20 },
-        { wch: 15 },
-        { wch: 15 },
-        { wch: 15 },
-        { wch: 10 },
-        { wch: 10 },
-        { wch: 10 },
-        { wch: 10 },
-        { wch: 10 },
-    ];
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Dados');
 
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Dados');
-
-
-    XLSX.writeFile(wb, 'Relatorio.xlsx');
+        XLSX.writeFile(wb, `Relatorio ${numero}.xlsx`);
+    } catch (err) {
+        console.log(err);
+    }
 }
