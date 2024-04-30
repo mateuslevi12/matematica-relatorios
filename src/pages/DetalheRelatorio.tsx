@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 
 export function DetalheRelatorio() {
 
-    const { nome } = useParams()
+    const { nome, quantidade } = useParams()
 
     const [baseAlunos, setBaseAlunos] = useState<IRelatorios[]>([])
     const [baseDengue, setBaseDengue] = useState<IRelatorios[]>([])
@@ -50,7 +50,7 @@ export function DetalheRelatorio() {
     const dataDengue = baseDengue?.filter(ba => ba.nome?.includes(filtro)).map(ba => [ba.id, ba.nome, formatarData(ba.data_de_nascimento), formatarData(ba.data_de_dengue)])
 
     const labelOnibus = ['ID', 'Nome', 'Data Nascimento', 'Linhas de onibus']
-    const dataOnibus = baseOnibus?.filter(ba => ba.nome?.includes(filtro)).map(ba => [ba.id, ba.nome, ba.data_de_nascimento, ba.onibus])
+    const dataOnibus = baseOnibus?.slice(1, baseOnibus.length).filter(ba => ba.nome?.includes(filtro)).map(ba => [ba.id, ba.nome, ba.data_de_nascimento, ba.onibus])
 
     const label1 = ['ID', 'Nome', 'Data Nascimento']
     const data1 = relatorio1?.filter(ba => ba.nome_aluno?.includes(filtro)).map(ba => [ba.id, ba.nome_aluno, formatarData(ba.data_de_nascimento)])
@@ -108,7 +108,7 @@ export function DetalheRelatorio() {
             <div className="p-4 flex flex-col gap-3">
                 <Card className="flex justify-between items-center pr-4">
                     <CardHeader>
-                        <CardTitle className="text-xl">Relatorios da cidade XPTO - {nome}</CardTitle>
+                        <CardTitle className="text-xl">Relatorios da cidade XPTO - {nome} - {quantidade}</CardTitle>
                         <CardDescription className="text-lg">Mateus Levi, Gabriel de Paula, Sergio Adriano, Marina Gabriela</CardDescription>
                     </CardHeader>
                     <Button variant='outline' onClick={() => exportExcel()}>Exportar</Button>
