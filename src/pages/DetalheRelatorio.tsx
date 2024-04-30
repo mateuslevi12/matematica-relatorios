@@ -108,7 +108,7 @@ export function DetalheRelatorio() {
             <div className="p-4 flex flex-col gap-3">
                 <Card className="flex justify-between items-center pr-4">
                     <CardHeader>
-                        <CardTitle className="text-xl">Relatorios da cidade XPTO - {nome} - {quantidade}</CardTitle>
+                        <CardTitle className="text-xl">Relatorios da cidade XPTO - {nome} - {quantidade} pessoas</CardTitle>
                         <CardDescription className="text-lg">Mateus Levi, Gabriel de Paula, Sergio Adriano, Marina Gabriela</CardDescription>
                     </CardHeader>
                     <Button variant='outline' onClick={() => exportExcel()}>Exportar</Button>
